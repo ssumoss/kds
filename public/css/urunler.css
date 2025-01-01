@@ -1,0 +1,168 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    background-color: #ffe;
+    overflow-x: hidden; /* Yatay kaydırma engellenir */
+}
+
+.sidebar {
+    position: fixed; /* Sabit pozisyon */
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 79px;
+    height: 100vh;
+    padding: 0.7rem;
+    color: #ffe;
+    transition: all 0.5s linear;
+    background: #942c16;
+    z-index: 10;
+    overflow: hidden; /* İçeriğin taşmasını engelle */
+}
+
+.sidebar:hover {
+    width: 240px; /* Genişleme */
+    transition: 0.5s; /* Pürüzsüz geçiş */
+}
+
+.logo {
+    height: 80px;
+    padding: 16px;
+}
+
+.menu {
+    height: 88%;
+    list-style: none;
+    padding: 0;
+}
+
+.menu li {
+    padding: 1rem;
+    margin: 8px 0;
+    border-radius: 8px;
+    transition: all 0.5s ease-in-out;
+}
+
+.menu li:hover,
+.active {
+    background: #bd6653;
+}
+
+.menu a {
+    color: #ffe;
+    font-size: 14px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.menu a span {
+    overflow: hidden;
+}
+
+.menu a i {
+    font-size: 1.2rem;
+}
+
+.logout {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.main--content {
+    position: relative;
+    background: #ffe;
+    width: 100%;
+    padding: 1rem;
+    margin-left: 79px; /* Menünün varsayılan genişliği kadar boşluk bırak */
+    transition: margin-left 0.5s ease-in-out; /* Yumuşak geçiş */
+}
+.main--title{
+    color: #861b04;
+    padding-bottom: 10px;
+    font-size: 20px;
+}
+
+.sidebar:hover + .main--content {
+    margin-left: 240px; /* Genişleyen menü kadar boşluk bırak */
+}
+
+.header--wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    background: #bd6653;
+    border-radius: 10px;
+    padding: 10px 2rem;
+    margin-bottom: 1rem;
+}
+
+.header--wrapper img {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.header--title {
+    color: #ffe;
+}
+
+.user--info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.container {
+    background: #dfaa9e;
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+    .header--wrapper {
+        flex-direction: column; /* Dikey sıralama */
+        gap: 1rem;
+    }
+}
+
+.chart--container {
+    background-color: #ffe;
+    border-radius: 10px;
+    width: 100%; /* Grafiğin genişliği */
+    height: 300px; /* Grafiğin yüksekliği */
+    margin-top: 20px; /* Üstten boşluk */
+    display: flex;
+    justify-content: space-around; /* Grafiklerin yan yana olmasını sağla */
+    gap: 20px;
+}
+
+#yearSelect {
+    background: #ffe;
+    color: #942c16;
+    position: absolute;
+    left: 5;
+    margin-bottom: 10px; /* Grafiklerden biraz boşluk bırakır */
+    padding: 5px; /* İç boşluk */
+    font-size: 15px; /* Yazı boyutu */
+    border: 1px solid #a22f2f; /* Kenar çerçevesi */
+    border-radius: 10px; /* Köşeleri yuvarlar */
+    outline: none; /* Odaklandığında çerçeve kaldırılır */
+    cursor: pointer; /* Tıklanabilir gösterge */
+}

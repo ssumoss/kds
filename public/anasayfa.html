@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width", initial-scale="1.0">
+        <title>Dashboard</title>
+        <link rel="stylesheet" href="css/anasayfa.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body>
+        <div class="sidebar">
+            <div class="logo"></div>
+            <ul class="menu">
+                <li class="active">
+                    <a href="anasayfa.html">
+                        <i class="fas fa-home"></i>
+                        <span>Anasayfa</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="subeler.html">
+                        <i class="fas fa-building"></i>
+                        <span>Şubeler</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="urunler.html">
+                        <i class="fas fa-coins"></i>
+                        <span>Ürünler</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="musteriler.html">
+                        <i class="fas fa-users"></i>
+                        <span>Müşteriler</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="tahmin.html">
+                        <i class="fas fa-chart-simple"></i>
+                        <span>Tahminleme</span>
+                    </a>
+                </li>
+                <li class="logout">
+                    <a href="giris.html">
+                        <i class="fas fa-power-off"></i>
+                        <span>Çıkış</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="main--content">
+            <div class="header--wrapper">
+                <div class="header--title">
+                    <h2>Dashboard</h2>
+                </div>
+                <div class="user--info">
+                    <img src="/resimler/resim.svg" alt="">
+                </div>
+            </div>
+            <div class="container">
+                <div class="box--wrapper">
+                    <div class="box">
+                        <div class="box--header">
+                            <div class="amount">
+                                <span class="title">Şube Sayısı</span>
+                                <div id="subeSayisi"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="box--header">
+                            <div class="amount">
+                                <span class="title">Müşteri Sayısı</span>
+                                <div id="musteriSayisi"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="box--header">
+                            <div class="amount">
+                                <span class="title">Satılan Ürün Sayısı</span>
+                                <div id="satisSayisi"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="box--header">
+                            <div class="amount">
+                                <span class="title">Toplam Gelir</span>
+                                <div id="toplamGelir"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="box--header">
+                            <div class="amount">
+                                <span class="title">Toplam Brüt Kâr</span>
+                                <div id="brutKar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart--container">
+                    <select id="yearSelect">
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                      </select>
+                    <canvas id="chart1"></canvas>
+                    <canvas id="chart2"></canvas>
+                </div>
+                <div class="chart--container">
+                    <canvas id="chart3"></canvas>
+                    <canvas id="chart4"></canvas>
+                </div>
+            </div>          
+        </div>
+    </body>
+    <script>
+        // Sayfa yüklendiğinde sube sayısını almak için API'yi çağır
+        window.onload = function() {
+            fetch('/api/sube-sayisi')
+                .then(response => response.json())
+                .then(data => {
+                    // şube sayısını HTML'ye yerleştir
+                    document.getElementById('subeSayisi').textContent = data.sube_sayisi;
+                })
+                .catch(error => {
+                    console.error('Hata:', error);
+                    document.getElementById('subeSayisi').textContent = 'Veri alınamadı';
+                });
+        /* }; */
+        // Sayfa yüklendiğinde müşteri sayısını almak için API'yi çağır
+            fetch('/api/musteri-sayisi')
+                .then(response => response.json())
+                .then(data => {
+                    // müşteri sayısını HTML'ye yerleştir
+                    document.getElementById('musteriSayisi').textContent = data.musteri_sayisi;
+                })
+                .catch(error => {
+                    console.error('Hata:', error);
+                    document.getElementById('musteriSayisi').textContent = 'Veri alınamadı';
+                });
+        // Sayfa yüklendiğinde satış sayısını almak için API'yi çağır
+            fetch('/api/satis-sayisi')
+                .then(response => response.json())
+                .then(data => {
+                    // satış sayısını HTML'ye yerleştir
+                    document.getElementById('satisSayisi').textContent = data.satis_sayisi;
+                })
+                .catch(error => {
+                    console.error('Hata:', error);
+                    document.getElementById('satisSayisi').textContent = 'Veri alınamadı';
+                });
+        // Sayfa yüklendiğinde geliri almak için API'yi çağır
+            fetch('/api/toplam-gelir')
+                .then(response => response.json())
+                .then(data => {
+                    // geliri HTML'ye yerleştir
+                    document.getElementById('toplamGelir').textContent = data.toplam_gelir;
+                })
+                .catch(error => {
+                    console.error('Hata:', error);
+                    document.getElementById('toplamGelir').textContent = 'Veri alınamadı';
+                });
+        // Sayfa yüklendiğinde brüt kar almak için API'yi çağır
+            fetch('/api/brut-kar')
+                .then(response => response.json())
+                .then(data => {
+                    // brüt karı HTML'ye yerleştir
+                    document.getElementById('brutKar').textContent = data.brut_kar;
+                })
+                .catch(error => {
+                    console.error('Hata:', error);
+                    document.getElementById('brutKar').textContent = 'Veri alınamadı';
+                });
+        //GRAFİKLER
+        const yearSelect = document.getElementById('yearSelect');
+
+        // Grafik 1: Şube Gelir
+        const ctx1 = document.getElementById('chart1').getContext('2d');
+        let myChart1;
+
+        function fetchAndRenderChart1(selectedYear) {
+            fetch(`/api/sube-gelir?year=${selectedYear}`)
+               .then(response => response.json())
+               .then(data => {
+                   const subeAdi = data.map(item => item.sube_adi);
+                   const subeGelir = data.map(item => item.sube_gelir);
+
+                   const data1 = {
+                       labels: subeAdi,
+                       datasets: [{
+                       label: `Gelir (${selectedYear})`,
+                       data: subeGelir,
+                       backgroundColor: 'rgba(148, 44, 21, 0.2)',
+                       borderColor: 'rgba(148, 44, 21, 1)',
+                       borderWidth: 1,
+                       borderRadius: 10,
+                       }]
+                  };
+                  const config1 = {
+                      type: 'bar',
+                      data: data1,
+                      options: {
+                           responsive: true,
+                           plugins: {
+                               legend: {
+                                   position: 'top',
+                               },
+                               title: {
+                                   display: true,
+                                   text: `Şube-Gelir (${selectedYear})`
+                               }
+                           },
+                           scales: {
+                                y: {
+                                    beginAtZero: true,
+                        }
+                    }
+                }
+            };
+
+            if (myChart1) {
+                myChart1.destroy();
+            }
+            myChart1 = new Chart(ctx1, config1);
+        })
+        .catch(error => console.error('Hata:', error));
+}
+
+// Grafik 2: Şube Brüt Kâr
+const ctx2 = document.getElementById('chart2').getContext('2d');
+let myChart2;
+
+function fetchAndRenderChart2(selectedYear) {
+    fetch(`/api/sube-brut?year=${selectedYear}`)
+        .then(response => response.json())
+        .then(data => {
+            const subeAdi = data.map(item => item.sube_adi);
+            const subeBrut = data.map(item => item.sube_brut);
+
+            const data2 = {
+                labels: subeAdi,
+                datasets: [{
+                    label: `Brüt Kâr (${selectedYear})`,
+                    data: subeBrut,
+                    backgroundColor: 'rgba(148, 44, 21, 0.2)',
+                    borderColor: 'rgba(148, 44, 21, 1)',
+                    borderWidth: 1,
+                    borderRadius: 10,
+                }]
+            };
+
+            const config2 = {
+                type: 'bar',
+                data: data2,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: `Şube-Brüt Kâr (${selectedYear})`
+                        }
+                    },
+                    scales: {
+                        y: {
+                    beginAtZero: true,
+                        }
+                    }
+                }
+            }
+
+                if (myChart2) {
+                    myChart2.destroy();
+                }
+                myChart2 = new Chart(ctx2, config2);
+            })
+        .catch(error => console.error('Hata:', error));
+}
+
+// Sayfa yüklendiğinde her iki grafiği oluştur
+fetchAndRenderChart1(yearSelect.value);
+fetchAndRenderChart2(yearSelect.value);
+
+// Yıl seçimi değiştiğinde her iki grafiği güncelle
+yearSelect.addEventListener('change', () => {
+    const selectedYear = yearSelect.value;
+    fetchAndRenderChart1(selectedYear);
+    fetchAndRenderChart2(selectedYear);
+});
+        ////////GRAFİK 3////////////77
+        // 3. Grafik: İşletme Genelinde Aylık Satış Miktarları
+const ctx3 = document.getElementById('chart3').getContext('2d');
+let myChart3;
+
+function fetchAndRenderChart3(selectedYear) {
+    fetch(`/api/satislar?year=${selectedYear}`)
+        .then(response => response.json())
+        .then(data => {
+            const ay = data.map(item => item.aylar);
+            const satis = data.map(item => item.satislar);
+
+            const data3 = {
+                labels: ay,
+                datasets: [{
+                    label: `Satış Miktarı (${selectedYear})`,
+                    data: satis,
+                    backgroundColor: 'rgba(148, 44, 21, 0.2)',
+                    borderColor: 'rgba(148, 44, 21, 1)',
+                    borderWidth: 1,
+                }]
+            };
+
+            const config3 = {
+                type: 'line',
+                data: data3,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: `İşletme Genelinde Aylık Satış Miktarları (${selectedYear})`
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        }
+                    }
+                }
+            };
+
+            if (myChart3) {
+                myChart3.destroy();
+            }
+            myChart3 = new Chart(ctx3, config3);
+        })
+        .catch(error => console.error('Hata (Grafik 3):', error));
+}
+
+// 4. Grafik: İşletme Genelinde Aylık Satış Gelirleri
+const ctx4 = document.getElementById('chart4').getContext('2d');
+let myChart4;
+
+function fetchAndRenderChart4(selectedYear) {
+    fetch(`/api/gelirler?year=${selectedYear}`)
+        .then(response => response.json())
+        .then(data => {
+            const ay = data.map(item => item.aylar);
+            const gelir = data.map(item => item.gelirler);
+
+            const data4 = {
+                labels: ay,
+                datasets: [{
+                    label: `Satış Geliri (${selectedYear})`,
+                    data: gelir,
+                    backgroundColor: 'rgba(148, 44, 21, 0.2)',
+                    borderColor: 'rgba(148, 44, 21, 1)',
+                    borderWidth: 1,
+                }]
+            };
+
+            const config4 = {
+                type: 'line',
+                data: data4,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: `İşletme Genelinde Aylık Satış Gelirleri (${selectedYear})`
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        }
+                    }
+                }
+            };
+
+            if (myChart4) {
+                myChart4.destroy();
+            }
+            myChart4 = new Chart(ctx4, config4);
+        })
+        .catch(error => console.error('Hata (Grafik 4):', error));
+}
+
+// İlk yükleme ve seçim değişimi
+fetchAndRenderChart3(yearSelect.value);
+fetchAndRenderChart4(yearSelect.value);
+
+yearSelect.addEventListener('change', () => {
+    const selectedYear = yearSelect.value;
+    fetchAndRenderChart3(selectedYear);
+    fetchAndRenderChart4(selectedYear);
+});
+        }
+        
+
+           
+
+
+
+    </script>
+</html>
