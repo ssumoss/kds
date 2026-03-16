@@ -22,34 +22,31 @@ db.connect((err) => {
     }
 });
 
-// Middleware
+//MIDDLEWARE
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/giris.html'))
+    res.sendFile(path.join(__dirname, 'public/html/giris.html'))
 });
-
+app.get('/giris.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/html/giris.html'))
+});
 app.get('/anasayfa.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/anasayfa.html'))
+    res.sendFile(path.join(__dirname, 'public/html/anasayfa.html'))
 });
-
 app.get('/subeler.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/subeler.html'))
+    res.sendFile(path.join(__dirname, 'public/html/subeler.html'))
 });
-
 app.get('/urunler.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/urunler.html'))
+    res.sendFile(path.join(__dirname, 'public/html/urunler.html'))
 });
-
 app.get('/musteriler.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/musteriler.html'))
+    res.sendFile(path.join(__dirname, 'public/html/musteriler.html'))
 });
-
 app.get('/tahmin.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/tahmin.html'))
+    res.sendFile(path.join(__dirname, 'public/html/tahmin.html'))
 });
-
 
 /////////////////////////////////////GİRİŞ EKRANI////////////////////////////////////////////////
 app.post("/login", (req, res) => {
@@ -763,7 +760,6 @@ app.get('/api/sevilmeyen-urun', (req, res) => {
 
 /////////////////////////////KARAR VE TAHMİN/////////////////////////////////////////
 ///////GRAFİK 1///////////
-// API endpoint'ini oluşturma
 app.get('/api/gelir-tahmin', (req, res) => {
     const query = `
      SELECT 
@@ -791,7 +787,7 @@ GROUP BY YEAR(satislar.satis_tarihi);
         console.error(err);
         return res.status(500).send('Database error');
       }
-      res.json(results);  // Verileri JSON formatında döndürüyoruz
+      res.json(results); 
     });
   });
   /////////////////GRAFİK 2/////////////////////
@@ -840,10 +836,6 @@ GROUP BY subeler.sube_adi;
     });
 });
 /////////////////////////TAHMİN SAYFASI SON///////////////////////////////////
-
-
-
-
 
 
 app.listen(port, () => {

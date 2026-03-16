@@ -14,7 +14,7 @@ body {
     overflow: auto;
 }
 .sidebar {
-    position: fixed; /* Sabit pozisyon */
+    position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
@@ -28,7 +28,7 @@ body {
     overflow: hidden;
 }
 .sidebar:hover {
-    width: 240px; /* Genişlemeyi sağlar */
+    width: 240px; 
     transition: 0.5s;
 }
 .logo {
@@ -76,11 +76,11 @@ body {
     background: #ffe;
     width: 100%;
     padding: 1rem;
-    margin-left: 79px; /* Menü genişliği kadar boşluk bırakıldı */
-    transition: margin-left 0.5s ease-in-out; /* Menü genişlerken içerik kayar */
+    margin-left: 79px; 
+    transition: margin-left 0.5s ease-in-out; 
 }
 .sidebar:hover + .main--content {
-    margin-left: 240px; /* Menü genişlediğinde ana içeriği kaydırır */
+    margin-left: 240px; 
 }
 .header--wrapper img {
     width: 50px;
@@ -117,7 +117,6 @@ body {
     font-size: 20px;
 }
 
-/* Responsive Tasarım */
 @media (max-width: 768px) {
     .header--wrapper {
         flex-direction: column;
@@ -127,22 +126,22 @@ body {
 .chart--container {
     background-color: #ffe;
     border-radius: 10px;
-    width: 100%; /* Container genişliği */
-    height: 400px; /* Container yüksekliği */
+    width: 100%; 
+    height: 400px; 
     margin-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     gap: 10px;
-    overflow: auto; /* Taşma durumunda kaydırma */
+    overflow: auto; 
 }
 
 #salesChart {
-    width: 100%; /* Grafik için genişlik */
-    height: 70%; /* Grafik için yükseklik */
-    max-height: 300px; /* Maksimum yükseklik */
-    max-width: 70%; /* Maksimum genişlik */
+    width: 100%; 
+    height: 70%; 
+    max-height: 300px; 
+    max-width: 70%; 
 }
 #updateButton {
     background: #861b04;
@@ -156,11 +155,11 @@ body {
     transition: background-color 0.3s;
 }
 #updateButton:hover {
-    background-color: #a22f2f; /* Hover sırasında arka plan rengi değişir */
+    background-color: #a22f2f; 
 }
 
 #updateButton:active {
-    background-color: #942c16; /* Tıklama sırasında daha koyu renk */
+    background-color: #942c16;
 }
 
 input[type="number"] {
@@ -175,8 +174,8 @@ input[type="number"] {
     color: #dfaa9e;
 }
 .input--container label {
-    color: #861b04; /* Etiket rengi */
-    font-size: 16px; /* Yazı boyutu */
+    color: #861b04; 
+    font-size: 16px; 
     font-weight: 1000;
 }
 button {
